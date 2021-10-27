@@ -1,0 +1,119 @@
+Http(Hypertext transfer protocol) text-based client-protocl for the internet that can be decoded to a text
+used for transfering web resources
+Request-Response based
+Server waits for a request for data to return a response
+Protocol is a list of requirements for a request to allow for computers to understand eachother
+HTTP defines methods from the request to be performed on indentified resources
+GET-reading,POST-create/store,PUT-update resource,DELETE-remove resource,PATCH-partially update,HEAD-retrieve headders,OPTIONS-return supported methods by server for this url
+usually not all methods are available sometimes even only the first 3
+HTTP resolves communication between computers on one language
+It is the foundation of the internet
+a website usually has a request for each of its resourcecs
+request syntax
+method adress of resource version of HTTP
+GET /users/testgrigor/repos HTTP/1.1
+Host: api.github.com - adress of Host/name of the app running on the Server which we send request to. Usually browser fills for us but it must be there!
+Optional headers
+-----------------
+Accept: */* - kind of resources
+Accept-Language: en - kind of language for resources
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/5.0(Windows NT 10.0; WOW64) AppleWebKit/
+537.36(KHTML, like Gecko) Chrome/54.0.2840.71 Safari/573.36 - used by Github Api
+Connection: Keep-Alive
+Cache-Control: no-cache
+<CRLF> - control symbol for new line
+
+Post request difference
+POST /users/testgrigor/repos HTTP/1.1
+Host: api.github.com
+Accept: */*
+Accept-Language: en
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0(compatible;MSIE 6.0;Windows NT 5.0;)
+Connection: Keep-Alive
+Cache-Control: no-cache
+<CRLF> - submitted body data
+{"title": "Found a bug",
+"body":"I'm having a problem with this.",
+"labels":"["bug","minor"]"}
+<CRLF> -body has ended on a new line
+
+
+HTTP Response line
+version  protocol code
+HTTP/1.1 200 OK
+https://http.cat/ - website for status codes
+Response headers
+...............
+Date: Fri,11 Nov 2015 15:04:23 GMT +2
+Server: Apache/2.2.14 (Linux)
+Accept-Ranges: bytes
+Content-Length: 84
+Content-Type: text/html
+<CRLF>
+Response body
+.............
+<html>
+    <head><title>Test</title></head>
+    <body>Test HTML page.</body>
+<html>
+200 - OK
+201 - created
+204 - no Content (action for which we dont require info)
+301/302 - moved
+400 -bad requests
+401/403 - unautoriesed
+404 -no found
+409 - conflict
+500/503 - Server error 
+when they start with 4 is usally a client error
+when error start with 5 is usually a server error
+
+specifies how the response body should be processed
+Content-Type: application/json
+text/html; charset=utf-8,application/pdf
+
+how the browser should react instead of loading it downloads file
+Content-Disposition: attachment;
+filename = "ect.pdf"
+
+
+HTTP developer tools
+Browser tools and Postman
+develeper tools - network we can see all responses for the current website
+typing a url in the browser is equivalent to a get request
+browser makes additional request for every resource in the core html file
+we use REST api to be able to send a singular request and update the dom of the webpage
+instead of reloading the page and geting all the info again
+OpenSSL can be used to make requests manually via terminal on ubuntu
+
+two types of servers static(CDN) for constant data and dynamic data from REST Api
+
+cookie,header,qyeryString are used to send tokens
+
+Restful services
+Representational State Transfer http-principles that extend http
+they are recommendations not hard defined like design patterns of programming
+resources have uri adress that can be created/retrieved/modified/deleted ect. e.g. file system
+1 client server architecture - 1 machine sends request 2nd machine is server
+2 statelessness - no state (actually we have tokens,trackers,cookies server alwawys knows who sent last request)
+3 cacheable
+4 layed system - server,os,web app ...
+5 code on demand (optional)
+6 uniform interface - every resource is accessed the same way!
+
+we dont have /delete or /create we access the desired object from the uri and modify it via request
+
+GET /api HTTP/1.1
+Host: swapi.dev
+
+Web apps require back-end to store information
+Creating a back-end is really time consuming
+Ready to use back-edns are available BaaS
+it gives you a url with a rest service
+Firebase - Google most popular
+Backendless
+Back4App
+
+https://testproject-396dd-default-rtdb.europe-west1.firebasedatabase.app/books/.json
