@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication demo</title>
+    <style>
+        label {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Register</h2>
+    <form id="register-form" method="POST" action="/users/register">
+        <label>Email: <input type="text" name="email" /></label>
+        <label>Password: <input type="password" name="password" /></label>
+        <label>Repeat: <input type="password" name="repass" /></label>
+        <input type="submit" value="Register" />
+    </form>
+    <h2>Login</h2>
+    <form id="login-form" method="POST" action="/users/register">
+        <label>Email: <input type="text" name="email" /></label>
+        <label>Password: <input type="password" name="password" /></label>
+        <input type="submit" value="Login" />
+    </form>
+    <script>
+        
+        const form = document.getElementById('register-form')
+        const loginForm = document.getElementById('login-form')
+        loginForm.addEventListener('submit', onLogin)
+        form.addEventListener('submit', onRegister)
+        async function onRegister(event) {
+            event.preventDefault()
+            const url = 'http://localhost:3030/users/register'
+            const formData = new FormData(form)
+            const email = formData.get('email').trim()
+            const password = formData.get('password').trim()
+            const repass = formData.get('repass').trim()
+            const res = await fetch(url, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password }),
+            })
+            const result = await res.json()
+            console.log(result)
+            window.location = '/index.html'
+
+        }
+        // the token we get for registering user can be saved using sessionStoragee browser api
+        // sessionStorage.setitem('token',authtoken).getitem.clear works like a map
+        // sessionStorage is alive until we close the tab or exit browser but stays if we chang page index
+        // it is sent in req header fetch(url,{method:get,headers:'X-authorisation:authtoken'})
+        async function onLogin(event) {
+            event.preventDefault()
+            const url = 'http://localhost:3030/users/login'
+            const formData = new FormData(loginForm)
+            const email = formData.get('email').trim()
+            const password = formData.get('password').trim()
+            // without a try catch block the fetch will return response and change page even on unsuccessful login
+            try{
+            const res = await fetch(url, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password }),
+            })
+            if (res.status != 200){
+                const error = await res.json()
+                throw new Error(`Error ${error.message}`)
+            }
+            const result = await res.json()
+            console.log(result)
+            sessionStorage.setItem('authToken', result.accessToken)
+            window.location = '/index.html'
+        }catch(error){
+            alert(`${error.message}`)
+        }
+        }
+
+    </script>
+</body>
+
+</html>

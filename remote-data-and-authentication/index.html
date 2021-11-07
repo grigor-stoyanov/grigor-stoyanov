@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Demo</title>
+    <style>
+        label {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!--form default behaviour does not support json and reloads the page -->
+    <form method="POST" action="http://localhost:3030/jsonstore/phonebook">
+        <label>Person: <input type="text" name="person" /></label>
+        <label>Phone: <input type="text" name="phone" /></label>
+        <input type="submit" value="Create Record" />
+    </form>
+    <script>
+        // adding custom behaviour is done trough ading event listener to the submit button with prevent default
+        const form = document.querySelector('form')
+        form.addEventListener('submit', onSubmit)
+        async function onSubmit(event) {
+            event.preventDefault()
+            const data = new FormData(form)
+            const person = data.get('person').trim()
+            const phone = data.get('phone').trim()
+            const record = { person, phone }
+            const result = await postData(record)
+            form.reset()
+            alert('record Created')
+            
+
+        }
+
+        // Getting all or individual data
+        async function getData() {
+            const url = 'http://localhost:3030/jsonstore/phonebook'
+            const options = {headers:{}}
+            const token = sessionStorage.getItem('token')
+            if (token !== null){
+                options.headers['X-Authorization'] = token
+            }
+            const res = await fetch(url,options)
+            const data = await res.json()
+            return data
+        }
+        async function getDataById(id) {
+            const url = 'http://localhost:3030/jsonstore/phonebook/' + id
+            const res = fetch('http://localhost:3030/jsonstore/phonebook')
+            const data = await res.json()
+            return data
+        }
+        // posting data to server
+        async function postData(data) {
+            const url = 'http://localhost:3030/jsonstore/phonebook'
+
+            const options = {
+                method: 'post',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+            try {
+                const res = await fetch(url, options)
+                if (res.ok != true) {
+                    throw Error(res.statusText)
+                }
+                const result = await res.json()
+                return result
+            } catch (error) {
+
+            }
+        }
+        // editing data of server
+        async function updateData(id, data) {
+            const url = 'http://localhost:3030/jsonstore/phonebook'
+            const options = {
+                method: 'put',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }
+            const res = await fetch(url, options)
+            const result = await res.json()
+            return result
+        }
+        // deleting data
+        async function deleteData(id) {
+            const url = 'http://localhost:3030/jsonstore/phonebook'
+            const options = { method: 'delete' }
+            const res = await fetch(url, options)
+            const result = await res.json()
+            return result
+        }
+
+    </script>
+</body>
+
+</html>
