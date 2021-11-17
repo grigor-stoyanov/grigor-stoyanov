@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA Demo</title>
+    <style>
+        #sections {
+            display: none;
+        }
+
+        label {
+            display: block;
+        }
+        #guestNav,#userNav{
+            display:none;
+        }
+    </style>
+    <!--scripts are automatically deferred e.g. no need to use DOMContentLoaded-->
+    <script src='src/app.js' type='module'></script>
+</head>
+
+<body>
+    <nav>
+        <a href='index.html' id='homeBtn'>Home</a>
+        <a href='catalog.html' id='catalogBtn'>Catalog</a>
+        <a href='about.html' id='aboutBtn'>About us</a>
+        <div id='guestNav'>
+            <a href='login.html' id='loginBtn'>Login</a>
+            <a href='register.html' id='registerBtn'>Register</a>
+        </div>
+        <div id="userNav">
+            <a href='javascript:void(0)' id='logoutBtn'>Logout</a>
+        </div>
+
+    </nav>
+    <main>
+
+    </main>
+    <div id='sections'>
+        <h1>SPA Demo</h1>
+        <section id='homeSection'>
+            <h1>Home Page</h1>
+            <p>Welcome to our site</p>
+        </section>
+        <section id='catalogSection'>
+            <h1>Catalog Page</h1>
+            <ul>
+            </ul>
+        </section>
+        <section id="loginSection">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <label>Email: <input type='text' name='email' placeholder="Enter your email adress"></label>
+                <label>Password: <input type='password' name='password' placeholder='Enter your password'></label>
+                <input type='submit' value='Login'>
+            </form>
+
+        </section>
+        <section id="registerSection">
+            <h1>Register</h1>
+            <form id='registerForm'>
+                <label>Email: <input type='text' name='email' placeholder="Enter your email adress"></label>
+                <label>Password: <input type='password' name='password' placeholder='Enter your password'></label>
+                <label>Repeat: <input type='password' name='repass' placeholder='Enter your password again'></label>
+                <input type='submit' value='Register'>
+            </form>
+        </section>
+        <section id='aboutSection'>
+            <h1>About Page</h1>
+            <p>Contact information</p>
+            <p>Phone: +1-555-7985</p>
+        </section>
+    </div>
+</body>
+
+</html>
