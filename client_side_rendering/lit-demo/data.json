@@ -1,0 +1,20 @@
+[
+    {
+        "title": "First Article",
+        "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sit dolorem provident fugit iure, libero corporis delectus ea similique quam recusandae laudantium quo obcaecati eveniet ipsa nihil distinctio quia maiores?",
+        "author": "John Wick",
+        "comments":[]
+    },
+    {
+        "title": "Second Article",
+        "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sit dolorem provident fugit iure, libero corporis delectus ea similique quam recusandae laudantium quo obcaecati eveniet ipsa nihil distinctio quia maiores?",
+        "author": "John Wick",
+        "comments":[]
+    },
+    {
+        "title": "Third Article",
+        "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sit dolorem provident fugit iure, libero corporis delectus ea similique quam recusandae laudantium quo obcaecati eveniet ipsa nihil distinctio quia maiores?",
+        "author": "John Wick",
+        "comments":[]
+    }
+]

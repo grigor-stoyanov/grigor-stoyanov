@@ -1,0 +1,13 @@
+body {
+    width: 980px;
+    margin: auto;
+    font-size: 24px;
+}
+article footer{
+    color:#999;
+}
+article {
+    margin: 32px 0px;
+    box-shadow: 0px 0px 15px 5px #999;
+    padding: 32px;
+}
