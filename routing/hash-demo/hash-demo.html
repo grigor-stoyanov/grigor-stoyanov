@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Demo</title>
+</head>
+
+<body>
+    <h1>Hash Routing Demo</h1>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#catalog">catalog</a>
+        <a href="#about">about</a>
+    </nav>
+    <main>
+       
+    </main>
+</body>
+<script>
+    const views = {
+        '#home':() => `<h2>Home Page</h2><p>Welcome to the site!</p>`,
+        '#catalog':() => '<h2>catalog</h2><p>List of items</p>',
+        '#about': () => '<h2>about us</h2><p>contact: +1-555-7777</p>'
+    }
+    const main = document.querySelector('main')
+    window.addEventListener('hashchange', onHashChange)
+    function changeHash(hash) {
+        window.location.hash = hash;
+    }
+    function onHashChange() {
+        //console.log('hash has changed')
+        //console.log(ev)
+        const hash = window.location.hash
+        const view = views[hash]
+        if(typeof view == 'function'){
+            main.innerHTML = view()
+        }else{
+            main.innerHTML = '<h2>404</h2><p>Page not found</p>'
+        }
+    }
+</script>
+
+</html>
